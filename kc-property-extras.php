@@ -622,8 +622,6 @@ function kcpe_extras_save( $post_id ) {
 
 	}
 
-	add_action('save_post', 'kcpe_extras_save');
-
 }
 
 add_action( 'save_post', 'kcpe_extras_save' );
