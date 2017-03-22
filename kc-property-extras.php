@@ -487,6 +487,8 @@ function kcpe_process_extra_table($extra, $value = null, $i, $orderMeta = false,
 /** Save metabox */
 function kcpe_extras_save( $post_id ) {
 
+	//Remove action to stop duplicate entries.
+	remove_action('save_post', 'kcpe_extras_save');
 
 	if ( get_post_type( $post_id ) !== 'shop_order' ) {
 		return;
@@ -619,6 +621,8 @@ function kcpe_extras_save( $post_id ) {
 		}
 
 	}
+
+	add_action('save_post', 'kcpe_extras_save');
 
 }
 
