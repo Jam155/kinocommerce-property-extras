@@ -1,7 +1,5 @@
 <?php
-
-/**
- * Plugin Name: KinoCommerce Property Extras
+/** * Plugin Name: KinoCommerce Property Extras
  * Description: Adds additional extras to properties and handles saving and payment of these.
  * Author: Kino Creative
  * Author URI: http://www.kinocreative.co.uk
@@ -401,12 +399,31 @@ function kcpe_meta_callback( $post ) {
 
 function kcpe_process_extra_table($extra, $value = null, $i, $orderMeta = false, $simple_meta = false) {
 
-
 	if($simple_meta) {
 		$row['name']     = kc_meta_to_label($extra);
 		$row['metaname'] = $extra;
 
-		$row['active'] = ( isset( $value ) && $value == 1 ? 'checked' : '' );
+		$extraArray = maybe_unserialize($value);
+
+		if (isset($extraArray) && is_array($extraArray)) {
+
+			if (isset($extraArray['price'])) {
+				
+				$row['price'] = $extraArray['price'];
+
+			}
+
+			if (isset($extraArray['active'])) {
+
+				$row['active'] = $extraArray['active'];
+
+			} 
+
+		} else {
+
+			$row['active'] = ( isset( $value ) && $value == 1 ? 'checked' : '' );
+
+		}
 
 		$row['hidden'] = '';
 	} elseif($orderMeta) {
